@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-
+import time
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -24,7 +24,9 @@ def browser_instance(request):
         driver = webdriver.Firefox(service=service_obj)
         driver.implicitly_wait(15)
 
-    yield driver
+    yield driver # Run before the function execution
+    time.sleep(2)
+    driver.close() # Run after the test function execution
 
 
     
